@@ -27,8 +27,9 @@ app.post("/", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(` Quote server / Backend running at http://127.0.0.1:${port}`);
+  console.log(`Quote server / Backend running on port ${port}`);
 });
+
 
 
 // To add a mew quote (POST)
