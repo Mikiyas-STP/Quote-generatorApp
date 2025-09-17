@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quote Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+    #quote { font-size: 1.5em; margin: 20px; }
+    button { padding: 10px 20px; font-size: 1em; }
+  </style>
+</head>
+<body>
+  <h1>Random Quote Generator</h1>
+  <div id="quote">Click the button to load a quote!</div>
+  <button id="new-quote">Get Quote</button>
+
+  <script>
+    async function fetchQuote() {
+      try {
+        const response = await fetch("http://127.0.0.1:3000/");  // call backend
+        const data = await response.json();                     // parse JSON
+        document.getElementById("quote").textContent = `"${data.quote}" - ${data.author}`;
+      } catch (err) {
+        document.getElementById("quote").textContent = "Error fetching quote 😢";
+        console.error(err);
+      }
+    }
+
+    document.getElementById("new-quote").addEventListener("click", fetchQuote);
+  </script>
+</body>
+</html>
