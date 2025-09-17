@@ -11,24 +11,23 @@
   <button id="new-quote">Get Quote</button>
 
   <script>
-    // Use local backend if running locally, otherwise use deployed backend
-const backendURL = window.location.hostname.includes("localhost")
-  ? "http://127.0.0.1:3000"
-  : "https://mikiyas-stp-quote-backend.hosting.codeyourfuture.io/";
+    // Automatically choose local or deployed backend
+    const backendURL = window.location.hostname.includes("localhost")
+      ? "http://127.0.0.1:3000"
+      : "https://mikiyas-stp-quote-backend.hosting.codeyourfuture.io/";
 
-async function fetchQuote() {
-  try {
-    const response = await fetch(backendURL);  // dynamic URL
-    const data = await response.json();        // parse JSON
-    document.getElementById("quote").textContent = `"${data.quote}" - ${data.author}`;
-  } catch (err) {
-    document.getElementById("quote").textContent = "Error fetching quote 😢";
-    console.error(err);
-  }
-}
+    async function fetchQuote() {
+      try {
+        const response = await fetch(backendURL);
+        const data = await response.json();
+        document.getElementById("quote").textContent = `"${data.quote}" - ${data.author}`;
+      } catch (err) {
+        document.getElementById("quote").textContent = "Error fetching quote 😢";
+        console.error(err);
+      }
+    }
 
-document.getElementById("new-quote").addEventListener("click", fetchQuote);
-
+    document.getElementById("new-quote").addEventListener("click", fetchQuote);
   </script>
 </body>
 </html>
