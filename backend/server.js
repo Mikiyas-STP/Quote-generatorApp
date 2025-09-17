@@ -5,7 +5,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json());   // <-- THIS LINE IS CRUCIAL
 
 const quotes = [
   { author: "Benjamin Franklin", quote: "Either write something worth reading or do something worth writing." },
@@ -19,15 +19,16 @@ app.get("/", (req, res) => {
 
 app.post("/", (req, res) => {
   const { author, quote } = req.body;
-  if (!author || !quote) return res.status(400).json({ error: "Author and quote are required" });
+  if (!author || !quote) {
+    return res.status(400).json({ error: "Author and quote are required" });
+  }
   quotes.push({ author, quote });
-  res.status(201).json({ message: "Quote added", quotesCount: quotes.length });
+  res.status(201).json({message:"Quote added", quotesCount: quotes.length});
 });
 
 app.listen(port, () => {
-  console.log(`Quote server running on port ${port}`);
+  console.log(`Quote server / Backend running on port ${port}`);
 });
-
 
 
 
