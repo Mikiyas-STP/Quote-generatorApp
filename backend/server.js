@@ -22,12 +22,10 @@ app.post("/quotes", (req, res) => {
   const { author, quote } = req.body;
   if (author && quote) {
     quotes.push({ author, quote });
-    res.json({ success: true, message:"Quote added sucessfully"});
-    else{
-      res.status(400).json({ sucess: false, message: "Invalid input. Both quote and author are required" });
-
-    } 
-  }  
+    res.json({ success: true, message:"Quote added sucessfully"});}
+  else{
+    res.status(400).json({ sucess: false, message: "Invalid input. Both quote and author are required" });
+    }   
 });
 
 app.listen(port,host, () => {
