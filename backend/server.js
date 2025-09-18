@@ -3,6 +3,7 @@ import cors from "cors";
 
 const app = express();
 const port = process.env.PORT || 3000;
+const host = process.env.HOST || "0.0.0.0";
 
 app.use(cors());
 app.use(express.json());   // <-- THIS LINE IS CRUCIAL
@@ -17,17 +18,20 @@ app.get("/", (req, res) => {
   res.json(quotes[index]);
 });
 
-app.post("/", (req, res) => {
+app.post("/quotes", (req, res) => {
   const { author, quote } = req.body;
-  if (!author || !quote) {
-    return res.status(400).json({ error: "Author and quote are required" });
-  }
-  quotes.push({ author, quote });
-  res.status(201).json({message:"Quote added", quotesCount: quotes.length});
+  if (author && quote) {
+    quotes.push({ author, quote });
+    res.json({ success: true, message:"Quote added sucessfully"});
+    else{
+      res.status(400).json({ sucess: false, message: "Invalid input. Both quote and author are required" });
+
+    } 
+  }  
 });
 
-app.listen(port, () => {
-  console.log(`Quote server / Backend running on port ${port}`);
+app.listen(port,host, () => {
+  console.log(`Server running at http://${port}:${port}`);
 });
 
 
